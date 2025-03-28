@@ -1,1 +1,0 @@
-# WB-Design-System

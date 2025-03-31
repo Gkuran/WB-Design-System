@@ -1,34 +1,25 @@
-import type { StyleProp, ViewStyle } from "react-native";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import type { StyleProp, ViewStyle } from "react-native";
+import React from "react";
 
+// Tipagem das props.
 export interface ButtonProps {
-  /** Is this the principal call to action on the page? */
-  primary?: boolean;
-  /** What background color to use */
-  backgroundColor?: string;
-  /** How large should the button be? */
-  size?: "small" | "medium" | "large";
-  /** Button contents */
   label: string;
-  /** Optional click handler */
+  primary?: boolean;
+  withIcon?: boolean;
+  isDisabled?: boolean;
   onPress?: () => void;
-  style?: StyleProp<ViewStyle>;
 }
 
-/** Primary UI component for user interaction */
 export const Button = ({
-  primary = false,
-  size = "medium",
-  backgroundColor,
   label,
-  style,
+  primary = false,
+  withIcon,
+  isDisabled,
   onPress,
 }: ButtonProps) => {
   const modeStyle = primary ? styles.primary : styles.secondary;
   const textModeStyle = primary ? styles.primaryText : styles.secondaryText;
-
-  const sizeStyle = styles[size];
-  const textSizeStyle = textSizeStyles[size];
 
   return (
     <TouchableOpacity
@@ -36,70 +27,39 @@ export const Button = ({
       activeOpacity={0.6}
       onPress={onPress}
     >
-      <View
-        style={[
-          styles.button,
-          modeStyle,
-          sizeStyle,
-          style,
-          !!backgroundColor && { backgroundColor },
-          { borderColor: "black" },
-        ]}
-      >
-        <Text style={[textModeStyle, textSizeStyle]}>{label}</Text>
+      <View style={[styles.button, modeStyle]}>
+        <Text style={[textModeStyle]}>{label}</Text>
       </View>
     </TouchableOpacity>
   );
 };
 
+// CSS
 const styles = StyleSheet.create({
   button: {
-    borderWidth: 0,
-    borderRadius: 48,
+    borderRadius: 100,
+    paddingVertical: 16,
+    paddingHorizontal: 24,
   },
   buttonText: {
     fontWeight: "700",
     lineHeight: 1,
   },
   primary: {
-    backgroundColor: "#1444fd",
+    backgroundColor: "#EA3C34",
   },
   primaryText: {
-    color: "white",
+    color: "#FFFFFF",
+    textAlign: "center",
+    fontSize: 16,
+    fontStyle: "normal",
+    fontWeight: "600",
+    lineHeight: 19,
   },
   secondary: {
-    backgroundColor: "transparent",
-    borderColor: "rgba(0, 0, 0, 0.15)",
-    borderWidth: 1,
+    backgroundColor: "#D2314E",
   },
   secondaryText: {
-    color: "#333",
-  },
-  small: {
-    paddingVertical: 10,
-    paddingHorizontal: 16,
-  },
-  smallText: {
-    fontSize: 12,
-  },
-  medium: {
-    paddingVertical: 11,
-    paddingHorizontal: 20,
-  },
-  mediumText: {
-    fontSize: 14,
-  },
-  large: {
-    paddingVertical: 12,
-    paddingHorizontal: 24,
-  },
-  largeText: {
-    fontSize: 16,
+    color: "#FFFFFF",
   },
 });
-
-const textSizeStyles = {
-  small: styles.smallText,
-  medium: styles.mediumText,
-  large: styles.largeText,
-};

@@ -2,7 +2,7 @@ import { Requirements } from "../components/Requirements";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta<typeof Requirements> = {
-  title: "Components/Requirements",
+  title: "Teste/Requirements",
   component: Requirements,
 };
 
